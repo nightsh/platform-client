@@ -6,6 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <script src="/config.js"></script>
         <script src="https://cdn.rawgit.com/davidjbradshaw/iframe-resizer/master/js/iframeResizer.contentWindow.min.js"></script>
+        <script src="https://rawgit.com/okfn/crowdsourced-surveys/gh-pages/js/iframe.js"></script>
 
         <title ng-bind-template="{{pageTitle}} {{siteTitle}}"></title>
         <meta name="description" ng-attr-content="{{pageDescription}}">
@@ -20,7 +21,7 @@
     </head>
     <!-- TODO: swap namespace based on rtlEnabled variable -->
     <!--<body ng-class="{ 'modal-visible': modalVisible , 'layout-class': globalLayout}" class="ltr-namespace" canvas>-->
-    <body ng-class="{ 'modal-visible': modalVisible }" class="{{ globalLayout }} ltr-namespace" canvas>
+    <body ng-class="{ 'modal-visible': modalVisible }" class="{{ globalLayout }} ltr-namespace" canvas onunload="alert('Unloading')">
     <!-- TODO: set layouts per view directive -->
         <div id="bootstrap-loading">
             <!-- loading the document -->
@@ -54,6 +55,7 @@
             <ush-mainsheet-container></ush-mainsheet-container>
 
         </div>
+        
 
         <script type="text/javascript">
             if (window.ushahidi && window.ushahidi.doorbellEnabled) {

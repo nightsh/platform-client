@@ -50,14 +50,14 @@ function downloadTranslations (transifex, languages, locales_dir) {
     let promises = languages.map(function (language) {
         return new Promise((resolve, reject) => {
             transifex.translationInstanceMethod(project_slug, resource, language.code, { mode: mode }, function (err, data) {
-                if (err) {
+                if (err || !data) {
                     // Not sure if we should just reject() here
-                    throw err;
+                    reject(err);
                 }
 
                 fs.writeFile(locales_dir + language.code.replace('_', '-') + '.json', data, (err) => {
                     if (err) {
-                        throw err;
+                        reject(err);
                     }
                     resolve();
                 });
@@ -152,6 +152,13 @@ module.exports = (locales_dir, done) => {
             saveTranslationList(languages, locales_dir)
         ]).then(() => {
             done();
+        }).catch((/*reason*/) => {
+            gutil.log(
+                ['transifex'], 
+                gutil.colors.yellow('Cannot access Transifex, will continue without downloading translations')
+            );
+            done();
         });
+;
     });
 };

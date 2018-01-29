@@ -29,6 +29,8 @@ function (
                     let language = languages.find(l => l.code === langKey);
 
                     $rootScope.rtlEnabled = language.rtl;
+                }, function(err) {
+                    console.warn('Error loading languages:', err);
                 });
             }
         });
@@ -41,6 +43,8 @@ function (
             require(['moment/locale/' + lang + '.js'], function () {
                 // And then set moment locale
                 moment.locale(lang);
+            }, function(err) {
+                console.warn('Failed to load ', lang);
             });
         }
 
@@ -51,6 +55,8 @@ function (
     var setStartLanguage = function () {
         getLanguage().then(function (language) {
             translate(language);
+        }, function(err) {
+            console.warn('Failed to load language:', err);
         });
     };
 

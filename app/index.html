@@ -55,6 +55,17 @@
 
         </div>
 
+        <!--
+        Iframe parent integration
+        -->
+        <script type="text/javascript">
+            $(document).ready(function() {
+                window.parent.postMessage({
+                    'location': window.location.href
+                }, "*");
+            });
+        </script>
+
         <script type="text/javascript">
             if (window.ushahidi && window.ushahidi.doorbellEnabled) {
                 window.doorbellOptions = {

@@ -1,7 +1,7 @@
 module.exports = NavigationController;
 
-NavigationController.$inject = ['Authentication', 'ConfigEndpoint', 'BootstrapConfig', '$rootScope', 'Features'];
-function NavigationController(Authentication, ConfigEndpoint, BootstrapConfig, $rootScope, Features) {
+NavigationController.$inject = ['Authentication', 'ConfigEndpoint', 'BootstrapConfig', '$rootScope', 'Features', '$location'];
+function NavigationController(Authentication, ConfigEndpoint, BootstrapConfig, $rootScope, Features, $location) {
     var vm = this;
 
     vm.site = BootstrapConfig;
@@ -27,6 +27,9 @@ function NavigationController(Authentication, ConfigEndpoint, BootstrapConfig, $
     function reloadSiteConfig() {
         ConfigEndpoint.get({ id: 'site' }).$promise.then(function (site) {
             vm.site = site;
+            window.parent.postMessage({
+                'location': $location.path()
+            }, '*');
         });
     }
 

@@ -159,6 +159,5 @@ module.exports = (locales_dir, done) => {
             );
             done();
         });
-;
     });
 };
